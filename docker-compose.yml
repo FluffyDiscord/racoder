@@ -7,7 +7,7 @@ services:
       - "3000:3000/tcp"
     environment:
       DEFAULT_BITRATE: 128
-      OUTPUT_PATH: '/'
+      OUTPUT_PATH: '/play'
       TZ: Europe/Berlin
       LOG_LEVEL: DEBUG
     read_only: true
