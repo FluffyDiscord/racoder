@@ -35,24 +35,14 @@ export function validateEnv() {
     process.env.LOG_LEVEL = "INFO";
   }
 
-  if (process.env.INPUT_STREAM == null) {
-    throw new Error("'INPUT_STREAM' environment variable is not set.");
-  }
-
-  try {
-    new URL(process.env.INPUT_STREAM);
-  } catch (error) {
-    throw new Error("'INPUT_STREAM' environment variable is not a valid URL.");
-  }
-
   if (process.env.OUTPUT_PATH == null) {
     log("'OUTPUT_PATH' environment variable is not set. Defaulting to '/' …");
     process.env.OUTPUT_PATH = "/";
   }
 
-  if (process.env.BITRATE == null) {
-    log("'BITRATE' environment variable is not set. Defaulting to '128k' …");
-    process.env.BITRATE = "128k";
+  if (process.env.DEFAULT_BITRATE == null) {
+    log("'DEFAULT_BITRATE' environment variable is not set. Defaulting to '128' …");
+    process.env.DEFAULT_BITRATE = "128";
   }
 
   if (process.env.TZ == null) {

@@ -1,4 +1,4 @@
-# 📻 racoder
+# 📻 racoder - OPUS, customizable bitrate and radio input stream at runtime
 
 [![Docker Image](https://github.com/paulgalow/racoder/actions/workflows/docker-image.yml/badge.svg)](https://github.com/paulgalow/racoder/actions/workflows/docker-image.yml)
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/paulgalow/racoder)](https://hub.docker.com/r/paulgalow/racoder/tags)
@@ -26,13 +26,24 @@ Racoder is a lightweight Node.js web server that leverages [FFmpeg](https://ffmp
 
 Configuration options are set using environment variables.
 
-| Name         | Description                               | Default value | Example                                                                             |
-| ------------ | ----------------------------------------- | ------------- | ----------------------------------------------------------------------------------- |
-| INPUT_STREAM | ℹ️ Required. URL for incoming stream      | N/A           | `https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/master_v180.m3u8` |
-| BITRATE      | Transcoding bitrate for output MP3 stream | `128k`        | `320k`                                                                              |
-| LOG_LEVEL    | Level of detail for log output            | `INFO`        | `DEBUG`                                                                             |
-| OUTPUT_PATH  | URL path for output MP3 stream            | `/`           | `/my-station`                                                                       |
-| TZ           | Timezone for log timestamps               | `UTC`         | `Europe/Berlin`                                                                     |
+| Name            | Description                                                                  | Default value | Example        |
+|-----------------|------------------------------------------------------------------------------|---------------|----------------|
+| LOG_LEVEL       | Level of detail for log output                                               | `INFO`        | `DEBUG`        |
+| OUTPUT_PATH     | URL path for output OPUS stream, please do not use `/`, always add some path | `/play`       | `/my-station`  |
+| DEFAULT_BITRATE | Default transcoding bitrate for output OPUS stream in kilobytes              | `128`         | `32`           |
+| TZ              | Timezone for log timestamps                                                  | `UTC`         | `Europe/Berlin` |
+
+Then call OUTPUT_PATH with these query parameters:
+
+| Name     | Description                                             | Example                                                                             |
+|----------|---------------------------------------------------------|-------------------------------------------------------------------------------------|
+| _radio   | ℹ️ Required. URL for incoming stream                    | `https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/master_v180.m3u8` |
+| _bitrate | Transcoding bitrate for output OPUS stream in kilobytes | `32`                                                                                |
+
+Full example url with default setup would then look like:
+```
+http://localhost:3000/play?_radio=https%3A%2F%2Fartesimulcast.akamaized.net%2Fhls%2Flive%2F2030993%2Fartelive_de%2Fmaster_v180.m3u8&_bitrate=32
+```
 
 ## How to deploy
 
